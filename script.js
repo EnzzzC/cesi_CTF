@@ -1,27 +1,25 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const loginForm = document.getElementById('loginForm');
-    const errorMessage = document.getElementById('errorMessage');
+const password = "mdp123"
 
-    // Identifiants de test (normalement stockés de manière sécurisée côté serveur)
-    const validCredentials = {
-        username: 'utilisateur',
-        password: 'motdepasse'
-    };
+function randomNumber() {
+    return Math.floor(Math.random() * 1000);
+}
+function getAction() {
+    let x = randomNumber();
+    let y = randomNumber();
+}
+for (let i = 0; i < 1000; i++) {
+    if (i % 2 === 0) {
+        let unusedVariable = randomNumber(); 
+    } else {
+        getAction();  
+    }
+}
+let a = "cacher";
+let b = "indices";
+let c = a + b;
 
-    loginForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-
-        const username = document.getElementById('username').value;
-        const password = document.getElementById('password').value;
-
-        // Vérification des identifiants
-        if (username === validCredentials.username && password === validCredentials.password) {
-            // Redirection en cas de succès
-            window.location.href = 'page2.html';
-        } else {
-            // Affichage du message d'erreur
-            errorMessage.textContent = 'incorrect';
-            errorMessage.style.display = 'block';
-        }
-    });
-});
+setTimeout(function() {
+}, 5000);
+localStorage.setItem("password1","bienvu321")
+let actions = ["vérifier", "exécuter", "démarrer", "stopper"];
+let randomAction = actions[Math.floor(Math.random() * actions.length)];    

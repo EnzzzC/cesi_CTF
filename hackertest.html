@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyber Challenge</title>
+    <style>
+        body {
+            font-family: 'Courier New', monospace;
+            background-color: #0a0a2a;
+            color: #00ff00;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+        #terminal {
+            width: 80%;
+            max-width: 800px;
+            background-color: #000;
+            border: 2px solid #00ff00;
+            padding: 20px;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+        }
+        #output {
+            height: 300px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+        }
+        #input {
+            width: 100%;
+            background-color: transparent;
+            border: none;
+            color: #00ff00;
+            font-family: 'Courier New', monospace;
+            outline: none;
+        }
+        .command {
+            color: #00ff00;
+        }
+        .success {
+            color: #00ff00;
+        }
+        .error {
+            color: red;
+        }
+        .system {
+            color: #00ffff;
+        }
+    </style>
+</head>
+<body>
+    <div id="terminal">
+        <div id="output"></div>
+        <div>
+            <span class="command">&gt;</span>
+            <input type="text" id="input" autocomplete="off">
+        </div>
+    </div>
+    <script>
+        
+        document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('input').focus();
+        });
+
+        const output = document.getElementById('output');
+        const input = document.getElementById('input');
+        const systemPassword = localStorage.getItem("password1");
+        let gameStage = 0;
+        let attempts = 0;
+
+        const challenges = [
+            {
+                description: " Niveau 1",
+                password: systemPassword
+            }
+        ];
+
+        function writeToTerminal(message, className = 'command') {
+            const line = document.createElement('div');
+            line.textContent = message;
+            line.className = className;
+            output.appendChild(line);
+            output.scrollTop = output.scrollHeight;
+        }
+
+        function startGame() {
+            writeToTerminal('=== CYBER CHALLENGE ===', 'system');
+            writeToTerminal('Bienvenue !', 'system');
+            writeToTerminal('Pénétrez les systèmes de sécurité niveau par niveau.', 'system');
+            writeToTerminal(`Défi actuel: ${challenges[gameStage].description}`, 'system');
+        }
+
+        input.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                const command = input.value.trim();
+                writeToTerminal(`> ${command}`, 'command');
+
+                if (command.toLowerCase() === challenges[gameStage].password.toLowerCase()) {
+                    writeToTerminal('Accès autorisé !', 'success');
+                    gameStage++;
+
+                    if (gameStage < challenges.length) {
+                        writeToTerminal(`Défi suivant: ${challenges[gameStage].description}`, 'system');
+                    } else {
+                        writeToTerminal('🏆 FÉLICITATIONS ! Tous les systèmes sont compromis ! ', 'success');
+                    }
+                } else {
+                    writeToTerminal('Accès refusé. Réessayez.', 'error');
+                }
+                input.value = '';
+            }
+        });
+
+        startGame();
+    </script>
+</body>
+</html>
