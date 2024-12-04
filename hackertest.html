@@ -50,6 +50,7 @@
             color: #00ffff;
         }
     </style>
+        <script src="script.js"></script>
 </head>
 <body>
     <div id="terminal">
@@ -75,6 +76,10 @@
             {
                 description: " Niveau 1",
                 password: systemPassword
+            },
+            {
+                description: " Niveau 2",
+                password: fhugprgv("guez")
             }
         ];
 
@@ -105,7 +110,7 @@
                     if (gameStage < challenges.length) {
                         writeToTerminal(`Défi suivant: ${challenges[gameStage].description}`, 'system');
                     } else {
-                        writeToTerminal('🏆 FÉLICITATIONS ! Tous les systèmes sont compromis ! ', 'success');
+                        writeToTerminal('🏆 FÉLICITATIONS ! Tout les niveaux sont réussis ! ', 'success');
                     }
                 } else {
                     writeToTerminal('Accès refusé. Réessayez.', 'error');
