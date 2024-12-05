@@ -68,18 +68,25 @@
 
         const output = document.getElementById('output');
         const input = document.getElementById('input');
-        const systemPassword = localStorage.getItem("password1");
+        const systempassword = "password1";
+        const systemPassword1 = fhugprgv("password1")
+        const systemPasswordl = localStorage.getItem("password1");
+
         let gameStage = 0;
         let attempts = 0;
 
         const challenges = [
             {
                 description: " Niveau 1",
-                password: systemPassword
+                password: systemPasswordl
             },
             {
                 description: " Niveau 2",
                 password: fhugprgv("guez")
+            },
+            {
+                description: " Niveau 3",
+                password: "input456"
             }
         ];
 
@@ -109,6 +116,12 @@
 
                     if (gameStage < challenges.length) {
                         writeToTerminal(`Défi suivant: ${challenges[gameStage].description}`, 'system');
+                        console.log(challenges.description)
+
+                        if (challenges[gameStage].description === " Niveau 3") {
+                            const input = document.getElementById('input');
+                            input.disabled = true;
+                        }
                     } else {
                         writeToTerminal('🏆 FÉLICITATIONS ! Tout les niveaux sont réussis ! ', 'success');
                     }
