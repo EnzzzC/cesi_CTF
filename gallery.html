@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>gallery</title>
+    <style>
+        body {
+            font-family: "Courier New", Courier, monospace;
+            background-image: url('./smiley.PNG');
+            color: #0f0;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        h1 {
+            margin-top: 20px;
+            color: #ff00ff;
+            font-size: 2.5rem;
+            text-shadow: 2px 2px 0 #00ffff;
+        }
+
+        .carousel-container {
+            position: relative;
+            width: 80%;
+            max-width: 600px;
+            margin: 20px auto;
+            overflow: hidden;
+            border: 4px solid #ff00ff;
+            box-shadow: 0 0 15px #00ffff;
+        }
+
+        .carousel {
+            display: flex;
+            transform: translateX(0); /* Pas de transition fluide */
+        }
+
+        
+      
+        .carousel img {
+            width: 100%;
+            flex-shrink: 0;
+            border: 2px solid #0f0;
+            background-color: #000;
+            transition: filter 0.5s ease; /* Transition pour l'effet */
+        }
+
+        .carousel img.pixelated {
+            filter: blur(10px) saturate(2) contrast(0.8);
+        }
+   
+
+        .carousel-controls {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+            gap: 10px; /* Espacement entre les boutons */
+        }
+
+        .carousel-controls button {
+            background-color: #000;
+            color: #0f0;
+            border: 2px solid #ff00ff;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-family: "Courier New", Courier, monospace;
+            text-transform: uppercase;
+            font-size: 1rem;
+        }
+
+        .carousel-controls button:hover {
+            background-color: #ff00ff;
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+    <h1>Galerie Photo </h1>
+    <div class="carousel-container">
+        <div class="carousel">
+            <img src="./IMG_5119.PNG" alt="Photo 1">
+            <img src="./IMG_5123.PNG" alt="Photo 2">
+            <img src="./IMG_5124.PNG" alt="Photo 3">
+        </div>
+    </div>
+    <div class="carousel-controls">
+        <button onclick="prevSlide()">Précédent</button>
+        <button onclick="nextSlide()">Suivant</button>
+    </div>
+
+    <script>
+        let currentIndex = 0;
+
+        
+        function updateCarousel() {
+    const carousel = document.querySelector('.carousel');
+    const slides = carousel.querySelectorAll('img');
+    const slideWidth = slides[0].clientWidth;
+
+    // Ajoute l'effet pixelisé à toutes les images
+    slides.forEach((slide) => slide.classList.add('pixelated'));
+
+    // Changement avec un délai pour simuler l'animation
+    setTimeout(() => {
+        carousel.style.transform = `translateX(${-currentIndex * slideWidth}px)`;
+
+        // Supprime l'effet pixelisé une fois le changement terminé
+        setTimeout(() => {
+            slides.forEach((slide) => slide.classList.remove('pixelated'));
+        }, 500); // Durée identique à la transition CSS
+    }, 50); // Petit délai avant d'appliquer le mouvement
+}
+
+
+        function nextSlide() {
+            const totalSlides = document.querySelectorAll('.carousel img').length;
+            currentIndex = (currentIndex + 1) % totalSlides;
+            updateCarousel();
+        }
+
+        function prevSlide() {
+            const totalSlides = document.querySelectorAll('.carousel img').length;
+            currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+            updateCarousel();
+        }
+    </script>
+</body>
+</html>
